@@ -1,0 +1,7 @@
+-- Manual de orientações do código --
+
+1. Como padrão o código sobe 100k de caracteres para implementar nos algoritimos de organização;
+2. Para alterar a quantidade de caractres que o codigo sobe é necessário mudar o nome do arquivo (presente na variavel FILE) e diminunir ou aumentar o tamanho da variavel "tamanho" e "lista[]";
+	2.1 Os arquivos devem estar presentes na mesma página do código;
+3. Priorizar o teste do código com a ferramenta VS Code, pois o site  
+https://www.onlinegdb.com NÃO suporta arquivos maiores de 100 kb;
