@@ -92,8 +92,11 @@ void main (){
 
   int numero, valor, tamanho = 100, lista[100]={};
   
-  float tempo;
-  time_t t_ini, t_fim;
+  // variáveis para armazenar tempo
+  float beginBubble, endBubble, tempoBubble;
+  float beginSelection, endSelection, tempoSelection;
+  float beginInsertion, endInsertion, tempoInsertion;
+  float beginQuick, endQuick, tempoQuick;
 
   FILE* arqNome = fopen("dados.txt","r"); //Abre o arquivo para leituta
 
@@ -114,36 +117,36 @@ void main (){
   printf("2. Insertion Sort; \n");
   printf("3. Selection sort;\n");
   printf("4. Quick Sort;\n");
+  printf("Número do algoritmo: ");
   scanf("\n %d",&valor);
   }
 
   switch (valor)
   {
   case 1:
-    //Chamar bubble sort
-    t_ini = time(&t_ini);
+    //Chamar bubble sort e iniciar timer
+    clock_t beginBubble = clock();
     bubbleSort(lista, tamanho);
-    t_fim = time(&t_fim);
-    tempo = difftime(t_fim, t_ini);
-
-
+    
     printf("[");
     for(int i = 0; i<=tamanho; i++){
       
-      printf("%d, ",lista[i]);
+      printf("%d, ", lista[i]);
     }
     printf("]\n");
+    
+    clock_t endBubble = clock();
+    double tempoBubble = (double)(endBubble - beginBubble) * 1000.0 / CLOCKS_PER_SEC;
+    
     printf("\nNúmero de movimentações: %i", movimento);
-    printf("\nTempo (em segundos): %f", tempo);
+    printf("\nTempo de execução (em segundos): %f", tempoBubble);
 
   break;
  
   case 2:
     //Chamar insertion sort
-    t_ini = time(NULL);
+    clock_t beginInsertion = clock();
     insertionSort(lista, tamanho);
-    t_fim = time(NULL);
-    tempo = difftime(t_fim,t_ini);
 
     printf("[");
     for(int i = 0; i<=tamanho; i++){
@@ -151,19 +154,20 @@ void main (){
       printf("%d, ",lista[i]);
 
     } 
-
     printf("]\n");
+
+    clock_t endInsertion = clock();
+    double tempoInsertion = (double)(endInsertion - beginInsertion) * 1000.0 / CLOCKS_PER_SEC;
+
     printf("\nNúmero de movimentações: %i", movimento);
-    printf("\nTempo (em segundos): %f", tempo);
+    printf("\nTempo (em segundos): %f", tempoInsertion);
 
   break;
 
   case 3:
     //Chamar Selection Sort
-    t_ini = time(NULL);
+    clock_t beginSelection = clock();
     selection_sort(lista, tamanho);
-    t_fim = time(NULL);
-    tempo = difftime(t_fim, t_ini);
     
     printf("[");
     for(int i = 0; i<=tamanho; i++){
@@ -171,35 +175,39 @@ void main (){
       printf("%d, ",lista[i]);
 
     }
-
     printf("]\n");
+
+    clock_t endSelection = clock();
+    double tempoSelection = (double)(endSelection - beginSelection) * 1000.0 / CLOCKS_PER_SEC;
+
     printf("\nNúmero de movimentações: %i", movimento);
-    printf("\nTempo (em segundos): %f", tempo); 
+    printf("\nTempo (em segundos): %f", tempoSelection); 
 
   break;
 
   case 4:
     //Chama o Quick sort
-    t_ini = time(NULL);
+    clock_t beginQuick = clock();
     quick_sort(lista, 0, tamanho);
-    t_fim = time(NULL);
-    tempo = difftime(t_fim,t_ini);
 
     printf("[");
     for(int i = 0; i<=tamanho; i++){
-       
+
       printf("%d, ",lista[i]);
 
     }
-
     printf("]\n");
+
+    clock_t endQuick = clock();
+    double tempoQuick = (double)(endQuick - beginQuick) * 1000.0 / CLOCKS_PER_SEC;
+
     printf("\nNúmero de movimentações: %i", movimento);
-    printf("\nTempo (em segundos): %f", tempo);
+    printf("\nTempo (em segundos): %f", tempoQuick);
    
    break;
   
     default:
-        printf ("\nOpção inválida! Escolha as opções listadas, apenas o número!\n\n");
+        printf ("\nOpção inválida! Escolha as opções listadas (apenas o número).\n\n");
         goto LOOP;
     break;
   }
