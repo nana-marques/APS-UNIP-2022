@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+// variavel global de registro dos movimentos.
+int movimento = 0;
+
 //Função Bubble Sort
 void bubbleSort(int vetor[], int tamanho){
 	int aux, i, j;
@@ -11,6 +14,7 @@ void bubbleSort(int vetor[], int tamanho){
 				aux=vetor[i];
                     vetor[i]=vetor[i+1];
                     vetor[i+1]=aux;
+                    movimento++;
         }
       }
   }
@@ -25,6 +29,7 @@ void insertionSort(int vetor[], int tamanho){
         while (j >= 0 && vetor[j] > key) {
             vetor[j + 1] = vetor[j];
             j = j - 1;
+            movimento++;
         }
         vetor[j + 1] = key;
     }
@@ -44,6 +49,7 @@ void selection_sort(int vetor[], int tamanho) {
        aux = vetor[i];
        vetor[i] = vetor[min];
        vetor[min] = aux;
+       movimento++;
      }
   }
 }
@@ -69,6 +75,7 @@ void quick_sort(int *a, int left, int right) {
             a[j] = y;
             i++;
             j--;
+            movimento++;
         }
     }
      
@@ -83,12 +90,12 @@ void quick_sort(int *a, int left, int right) {
 //Principal
 void main (){
 
-  int numero,valor, tamanho = 100000, lista[100000]={};
+  int numero, valor, tamanho = 100, lista[100]={};
   
   float tempo;
   time_t t_ini, t_fim;
 
-  FILE* arqNome = fopen("dtaleat100kuni0.txt","r"); //Abre o arquivo para leituta
+  FILE* arqNome = fopen("dados.txt","r"); //Abre o arquivo para leituta
 
   //Verificação se o arquivo foi devidamente selecionado
   if(arqNome != NULL){
@@ -101,29 +108,33 @@ void main (){
     }
   }
   
+  LOOP:{
   printf("Selecione o algoritimo de organização: \n");
   printf("1. Bubble Sort;\n");
   printf("2. Insertion Sort; \n");
   printf("3. Selection sort;\n");
   printf("4. Quick Sort;\n");
   scanf("\n %d",&valor);
+  }
 
   switch (valor)
   {
   case 1:
     //Chamar bubble sort
-    t_ini = time(NULL);
+    t_ini = time(&t_ini);
     bubbleSort(lista, tamanho);
-    t_fim = time(NULL);
-    tempo = difftime(t_fim,t_ini);
+    t_fim = time(&t_fim);
+    tempo = difftime(t_fim, t_ini);
 
+
+    printf("[");
     for(int i = 0; i<=tamanho; i++){
       
-      printf("\n %d",lista[i]);
-
+      printf("%d, ",lista[i]);
     }
-    
-    printf("\nTempo (em segundos): %f",tempo);
+    printf("]\n");
+    printf("\nNúmero de movimentações: %i", movimento);
+    printf("\nTempo (em segundos): %f", tempo);
 
   break;
  
@@ -134,30 +145,36 @@ void main (){
     t_fim = time(NULL);
     tempo = difftime(t_fim,t_ini);
 
+    printf("[");
     for(int i = 0; i<=tamanho; i++){
        
-      printf("\n %d",lista[i]);
+      printf("%d, ",lista[i]);
 
     } 
 
-   printf("\nTempo (em segundos): %f",tempo);
+    printf("]\n");
+    printf("\nNúmero de movimentações: %i", movimento);
+    printf("\nTempo (em segundos): %f", tempo);
 
   break;
 
   case 3:
     //Chamar Selection Sort
     t_ini = time(NULL);
-    selection_sort(lista,tamanho);
+    selection_sort(lista, tamanho);
     t_fim = time(NULL);
-    tempo = difftime(t_fim,t_ini);
+    tempo = difftime(t_fim, t_ini);
     
+    printf("[");
     for(int i = 0; i<=tamanho; i++){
        
-      printf("\n %d",lista[i]);
+      printf("%d, ",lista[i]);
 
     }
 
-    printf("\nTempo (em segundos): %f",tempo); 
+    printf("]\n");
+    printf("\nNúmero de movimentações: %i", movimento);
+    printf("\nTempo (em segundos): %f", tempo); 
 
   break;
 
@@ -168,27 +185,24 @@ void main (){
     t_fim = time(NULL);
     tempo = difftime(t_fim,t_ini);
 
+    printf("[");
     for(int i = 0; i<=tamanho; i++){
        
-      printf("\n %d",lista[i]);
+      printf("%d, ",lista[i]);
 
-     }
+    }
 
-   printf("\nTempo (em segundos): %f",tempo); 
+    printf("]\n");
+    printf("\nNúmero de movimentações: %i", movimento);
+    printf("\nTempo (em segundos): %f", tempo);
    
    break;
   
-
-
     default:
-    
+        printf ("\nOpção inválida! Escolha as opções listadas, apenas o número!\n\n");
+        goto LOOP;
     break;
   }
   
   fclose(arqNome);
-
-  
-
-  return 0;
-
 }
