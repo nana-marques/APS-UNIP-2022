@@ -129,7 +129,7 @@ void main (){
     bubbleSort(lista, tamanho);
     
     printf("[");
-    for(int i = 0; i<=tamanho; i++){
+    for(int i = 0; i<tamanho; i++){
       
       printf("%d, ", lista[i]);
     }
@@ -149,7 +149,7 @@ void main (){
     insertionSort(lista, tamanho);
 
     printf("[");
-    for(int i = 0; i<=tamanho; i++){
+    for(int i = 0; i<tamanho; i++){
        
       printf("%d, ",lista[i]);
 
@@ -170,7 +170,7 @@ void main (){
     selection_sort(lista, tamanho);
     
     printf("[");
-    for(int i = 0; i<=tamanho; i++){
+    for(int i = 0; i<tamanho; i++){
        
       printf("%d, ",lista[i]);
 
@@ -191,7 +191,7 @@ void main (){
     quick_sort(lista, 0, tamanho);
 
     printf("[");
-    for(int i = 0; i<=tamanho; i++){
+    for(int i = 0; i<tamanho; i++){
 
       printf("%d, ",lista[i]);
 
