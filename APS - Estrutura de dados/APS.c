@@ -4,17 +4,22 @@
 
 // variavel global de registro dos movimentos.
 int movimento = 0;
+int trocas = 0,comparacoes = 0;
 
 //Função Bubble Sort
 void bubbleSort(int vetor[], int tamanho){
 	int aux, i, j;
 	for(j=tamanho-1; j>=1; j--){
+
 		for(i=0; i<j; i++){
+        comparacoes++;
+
 			if(vetor[i]>vetor[i+1]){
-				aux=vetor[i];
-                    vetor[i]=vetor[i+1];
-                    vetor[i+1]=aux;
-                    movimento++;
+				trocas++;
+        aux=vetor[i];
+        vetor[i]=vetor[i+1];
+        vetor[i+1]=aux;
+                    
         }
       }
   }
@@ -26,11 +31,15 @@ void insertionSort(int vetor[], int tamanho){
     for (i = 1; i < tamanho; i++) {
         key = vetor[i];
         j = i - 1;
+        comparacoes++;
+
         while (j >= 0 && vetor[j] > key) {
+            trocas++;
             vetor[j + 1] = vetor[j];
             j = j - 1;
             movimento++;
         }
+        trocas++;
         vetor[j + 1] = key;
     }
 }
@@ -38,18 +47,22 @@ void insertionSort(int vetor[], int tamanho){
 //Função Selection Sort
 void selection_sort(int vetor[], int tamanho) { 
   int i, j, min, aux;
-  for (i = 0; i < (tamanho-1); i++) 
-  {
-     min = i;
-     for (j = (i+1); j < tamanho; j++) {
-       if(vetor[j] < vetor[min]) 
-         min = j;
+  for (i = 0; i < (tamanho-1); i++) {
+    min = i;
+     
+    for (j = (i+1); j < tamanho; j++) {
+      comparacoes++;
+      
+      if(vetor[j] < vetor[min]){
+        min = j;
+      }
      }
+     
+     trocas+=3;
      if (i != min) {
        aux = vetor[i];
        vetor[i] = vetor[min];
        vetor[min] = aux;
-       movimento++;
      }
   }
 }
@@ -61,21 +74,28 @@ void quick_sort(int *a, int left, int right) {
     i = left;
     j = right;
     x = a[(left + right) / 2];
+    trocas+=3;
      
     while(i <= j) {
         while(a[i] < x && i < right) {
             i++;
+            comparacoes++;
+            trocas++;
         }
+
         while(a[j] > x && j > left) {
             j--;
+            comparacoes++;
+            trocas++;
         }
         if(i <= j) {
             y = a[i];
             a[i] = a[j];
             a[j] = y;
+            movimento+=3;
             i++;
             j--;
-            movimento++;
+            
         }
     }
      
@@ -90,7 +110,7 @@ void quick_sort(int *a, int left, int right) {
 //Principal
 void main (){
 
-  int numero, valor, tamanho = 100, lista[100]={};
+  int numero, valor, tamanho = 50, lista[50]={};
   
   // variáveis para armazenar tempo
   float beginBubble, endBubble, tempoBubble;
@@ -98,7 +118,7 @@ void main (){
   float beginInsertion, endInsertion, tempoInsertion;
   float beginQuick, endQuick, tempoQuick;
 
-  FILE* arqNome = fopen("dados.txt","r"); //Abre o arquivo para leituta
+  FILE* arqNome = fopen("dtconcv50dup9.txt","r"); //Abre o arquivo para leituta
 
   //Verificação se o arquivo foi devidamente selecionado
   if(arqNome != NULL){
@@ -138,7 +158,9 @@ void main (){
     clock_t endBubble = clock();
     double tempoBubble = (double)(endBubble - beginBubble) * 1000.0 / CLOCKS_PER_SEC;
     
-    printf("\nNúmero de movimentações: %i", movimento);
+
+    printf("\nNúmero de comparacoes: %i", comparacoes);
+    printf("\nNúmero de trocas de posição: %i", trocas);
     printf("\nTempo de execução (em segundos): %f", tempoBubble);
 
   break;
@@ -159,7 +181,8 @@ void main (){
     clock_t endInsertion = clock();
     double tempoInsertion = (double)(endInsertion - beginInsertion) * 1000.0 / CLOCKS_PER_SEC;
 
-    printf("\nNúmero de movimentações: %i", movimento);
+    printf("\nNúmero de comparacoes: %i", comparacoes);
+    printf("\nNúmero de trocas de posição: %i", trocas);
     printf("\nTempo (em segundos): %f", tempoInsertion);
 
   break;
@@ -179,8 +202,9 @@ void main (){
 
     clock_t endSelection = clock();
     double tempoSelection = (double)(endSelection - beginSelection) * 1000.0 / CLOCKS_PER_SEC;
-
-    printf("\nNúmero de movimentações: %i", movimento);
+   
+    printf("\nNúmero de comparacoes: %i", comparacoes);
+    printf("\nNúmero de trocas de posição: %i", trocas);
     printf("\nTempo (em segundos): %f", tempoSelection); 
 
   break;
@@ -200,8 +224,9 @@ void main (){
 
     clock_t endQuick = clock();
     double tempoQuick = (double)(endQuick - beginQuick) * 1000.0 / CLOCKS_PER_SEC;
-
-    printf("\nNúmero de movimentações: %i", movimento);
+ 
+    printf("\nNúmero de comparacoes: %i", comparacoes);
+    printf("\nNúmero de trocas de posição: %i", trocas);
     printf("\nTempo (em segundos): %f", tempoQuick);
    
    break;
