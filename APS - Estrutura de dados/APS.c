@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-// variavel global de registro dos movimentos.
-int movimento = 0;
-int trocas = 0,comparacoes = 0;
+
+int movimento = 0; // Variavel global de registro dos movimentos.
+int trocas = 0, comparacoes = 0; // Variáveis de registro das trocas e comparações
 
 //Função Bubble Sort
 void bubbleSort(int vetor[], int tamanho){
@@ -110,9 +110,9 @@ void quick_sort(int *a, int left, int right) {
 //Principal
 void main (){
 
-  int numero, valor, tamanho = 50, lista[50]={};
+  int numero, valor, tamanho = 50, lista[50]={}; //Declaração dos valores a serem usados (tamanhos)
   
-  // variáveis para armazenar tempo
+  // Variáveis para armazenar tempo
   float beginBubble, endBubble, tempoBubble;
   float beginSelection, endSelection, tempoSelection;
   float beginInsertion, endInsertion, tempoInsertion;
@@ -131,24 +131,24 @@ void main (){
     }
   }
   
-  LOOP:{
+  LOOP:{ // Usado para reiniciar o menu
   printf("Selecione o algoritimo de organização: \n");
   printf("1. Bubble Sort;\n");
   printf("2. Insertion Sort; \n");
   printf("3. Selection sort;\n");
   printf("4. Quick Sort;\n");
   printf("Número do algoritmo: ");
-  scanf("\n %d",&valor);
+  scanf("\n %d",&valor); //leitura do input
   }
 
-  switch (valor)
+  switch (valor) // Switch que trata qual função será chamada
   {
   case 1:
-    //Chamar bubble sort e iniciar timer
+    //Chama Bubble Sort e inicia timer
     clock_t beginBubble = clock();
     bubbleSort(lista, tamanho);
     
-    printf("[");
+    printf("["); //Print do array resolvido
     for(int i = 0; i<tamanho; i++){
       
       printf("%d, ", lista[i]);
@@ -156,7 +156,7 @@ void main (){
     printf("]\n");
     
     clock_t endBubble = clock();
-    double tempoBubble = (double)(endBubble - beginBubble) * 1000.0 / CLOCKS_PER_SEC;
+    double tempoBubble = (double)(endBubble - beginBubble) * 1000.0 / CLOCKS_PER_SEC; // Contagem do tempo
     
 
     printf("\nNúmero de comparacoes: %i", comparacoes);
@@ -166,11 +166,11 @@ void main (){
   break;
  
   case 2:
-    //Chamar insertion sort
+    //Chama Insertion Sort e inicia timer
     clock_t beginInsertion = clock();
     insertionSort(lista, tamanho);
 
-    printf("[");
+    printf("["); //Print do array resolvido
     for(int i = 0; i<tamanho; i++){
        
       printf("%d, ",lista[i]);
@@ -179,7 +179,7 @@ void main (){
     printf("]\n");
 
     clock_t endInsertion = clock();
-    double tempoInsertion = (double)(endInsertion - beginInsertion) * 1000.0 / CLOCKS_PER_SEC;
+    double tempoInsertion = (double)(endInsertion - beginInsertion) * 1000.0 / CLOCKS_PER_SEC; // Contagem do tempo
 
     printf("\nNúmero de comparacoes: %i", comparacoes);
     printf("\nNúmero de trocas de posição: %i", trocas);
@@ -188,11 +188,11 @@ void main (){
   break;
 
   case 3:
-    //Chamar Selection Sort
+    //Chama Selection Sort e inicia o timer
     clock_t beginSelection = clock();
     selection_sort(lista, tamanho);
     
-    printf("[");
+    printf("["); //Print do array resolvido
     for(int i = 0; i<tamanho; i++){
        
       printf("%d, ",lista[i]);
@@ -201,7 +201,7 @@ void main (){
     printf("]\n");
 
     clock_t endSelection = clock();
-    double tempoSelection = (double)(endSelection - beginSelection) * 1000.0 / CLOCKS_PER_SEC;
+    double tempoSelection = (double)(endSelection - beginSelection) * 1000.0 / CLOCKS_PER_SEC; // Contagem do tempo
    
     printf("\nNúmero de comparacoes: %i", comparacoes);
     printf("\nNúmero de trocas de posição: %i", trocas);
@@ -210,11 +210,11 @@ void main (){
   break;
 
   case 4:
-    //Chama o Quick sort
+    //Chama o Quick Sort e inicia o timer
     clock_t beginQuick = clock();
     quick_sort(lista, 0, tamanho);
 
-    printf("[");
+    printf("["); //Print do array resolvido
     for(int i = 0; i<tamanho; i++){
 
       printf("%d, ",lista[i]);
@@ -223,7 +223,7 @@ void main (){
     printf("]\n");
 
     clock_t endQuick = clock();
-    double tempoQuick = (double)(endQuick - beginQuick) * 1000.0 / CLOCKS_PER_SEC;
+    double tempoQuick = (double)(endQuick - beginQuick) * 1000.0 / CLOCKS_PER_SEC; // Contagem do tempo
  
     printf("\nNúmero de comparacoes: %i", comparacoes);
     printf("\nNúmero de trocas de posição: %i", trocas);
@@ -231,11 +231,12 @@ void main (){
    
    break;
   
-    default:
+    default: // Caso usuário escolha um número diferente de 1, 2, 3 ou 4
         printf ("\nOpção inválida! Escolha as opções listadas (apenas o número).\n\n");
         goto LOOP;
     break;
   }
   
+  //Fecha o arquivo utilizado
   fclose(arqNome);
 }
